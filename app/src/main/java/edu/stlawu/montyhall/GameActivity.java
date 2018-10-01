@@ -1,4 +1,4 @@
-//Anna Breton hi 
+//Anna Breton test
 //sources for my app:
 // https://sproutsocial.com/insights/bounce-animation-for-android/, https://developer.android.com
 // https://en.wikipedia.org/wiki/Monty_Hall_problem
