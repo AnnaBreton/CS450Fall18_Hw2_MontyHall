@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">MontyHallGame</string>
+
+
+    <string name="title">Monty Hall, the game!</string>
+    <string name="new_text">Start Game</string>
+    <string name="continue_text">Continue</string>
+    <string name="about_text">About the game</string>
+    <string name="about">
+
+        How it works:
+        In search of a new car,
+        the player picks a door, say 1.
+        The game host then opens one of the other doors, say 3, to
+        reveal a goat and offers to let the player switch from door 1 to door 2. - https://en.wikipedia.org/wiki/Monty_Hall_problem
+    </string>
+    <string name="about_title_text">Monty Hall</string>
+    <string name="ok">OK</string>
+    <string name="choose_a_door">Select a door</string>
+    <string name="win_Door" />
+    <string name="selected_door" />
+    <string name="goat_door" />
+    <string name="win_count" />
+    <string name="loss_count" />
+    <string name="again">play again</string>
+
+</resources>
