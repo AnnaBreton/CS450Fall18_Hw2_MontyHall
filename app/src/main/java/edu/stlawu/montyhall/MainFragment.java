@@ -72,8 +72,6 @@ public class MainFragment extends Fragment {
 
         );
 
-
-        //continue button should launch but set variable to false for newClick so it loads old data
         View continueButton = rootView.findViewById(R.id.continue_button);
         continueButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
@@ -99,9 +97,6 @@ public class MainFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             FIListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
         }
     }
 

@@ -1,10 +1,11 @@
-//Anna Breton test
+//Anna Breton
 //sources for my app:
 // https://sproutsocial.com/insights/bounce-animation-for-android/, https://developer.android.com
 // https://en.wikipedia.org/wiki/Monty_Hall_problem
 //https://www.freesoundeffects.com/free-sounds/
-//google images
-//cs450
+//Images of goats, cars and doors are from google images
+// code stared in cs450 with assistance from Sam Emmerson
+//https://developer.android.com
 package edu.stlawu.montyhall;
 
 import android.animation.Animator;
@@ -27,34 +28,23 @@ import java.util.Random;
 import static edu.stlawu.montyhall.MainFragment.PREF_NAME;
 
 public class GameActivity extends AppCompatActivity {
+    //variables for keeping track of everything!
     public Random randomizer = new Random();
-
     public ImageButton door1 = null;
     public ImageButton door2 = null;
     public ImageButton door3 = null;
-
-    //check to see if a win door saved
     private ImageButton doorWCar = null;
-    //check to see if door selected
     private ImageButton selectedDoor = null;
     private ImageButton goatDoor = null;
-
     private TextView prompt = null;
     private TextView again = null;
-
-    // get the wins and losses
-    //and index of selected and win door
     private int win = 0;
     private int loss = 0;
     private int choicedoor = -1;
     private int winnerdoor = -1;
     private int opendoor = -1;
-
-    //textViews
     private TextView timesWon = null;
     private TextView timesLost = null;
-
-    //sound stuff
     public AudioAttributes aa = null;
     private SoundPool soundPool = null;
     private int sound_car = 0;
@@ -96,8 +86,6 @@ public class GameActivity extends AppCompatActivity {
         animator.setDuration(1500);
         animator.start();
     }
-
-    //how/where we'll put the winning car
     private ImageButton generate_win() {
         int win = (randomizer.nextInt(3));
         winnerdoor = win;
@@ -192,16 +180,9 @@ public class GameActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        //new game stuff
-
-        //check to see if new game
         boolean newGame = getSharedPreferences(
                 PREF_NAME, Context.MODE_PRIVATE).getBoolean("NEWCLICKED", true);
 
-        System.out.println("is it a new game:  " + newGame);
-
-
-        //get wins and losses
         this.win = 0;
         this.loss = 0;
         this.timesWon = findViewById(R.id.win_text);
@@ -229,9 +210,7 @@ public class GameActivity extends AppCompatActivity {
         door2 = (ImageButton) findViewById(R.id.door2);
         door3 = (ImageButton) findViewById(R.id.door3);
 
-        doors = new ImageButton[]{door1, door2, door3}; // array of the location of door strings
-
-
+        doors = new ImageButton[]{door1, door2, door3};
         this.door1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -251,7 +230,6 @@ public class GameActivity extends AppCompatActivity {
                 Image_button_clicked(door3);
             }
         });
-        // in case this is first time and we need to generate a win door
 
 
         if (newGame == true) {
@@ -261,24 +239,18 @@ public class GameActivity extends AppCompatActivity {
             getPreferences(MODE_PRIVATE).edit().putInt("loss_count", 0);
             this.selectedDoor = null;
             choicedoor = -1;
-            System.out.println("starting over the selected door is: " + selectedDoor);
             doorWCar = generate_win();
             getPreferences(MODE_PRIVATE).edit().putInt("win_Door", -1);
-            //set doors to original state
-
         } else {
-            System.out.println("on create, continue button clicked, loading save data");
-            //load saved data
+
             System.out.println(getPreferences(MODE_PRIVATE).contains("win_Door"));
             winnerdoor = getPreferences(MODE_PRIVATE).getInt("win_Door", -1);
-            System.out.println("The stored win index is : " + winnerdoor);
 
             if (winnerdoor == -1) {
-                doorWCar = generate_win(); //generate a new win door
+                doorWCar = generate_win();
             } else {
-                doorWCar = doors[winnerdoor]; //set the stored win door as the new win
+                doorWCar = doors[winnerdoor];
             }
-            //goat door stuff
             opendoor = getPreferences(MODE_PRIVATE).getInt("goat_door", -1);
 
             if (opendoor == -1) {
@@ -289,7 +261,6 @@ public class GameActivity extends AppCompatActivity {
             }
 
             choicedoor = getPreferences(MODE_PRIVATE).getInt("selected_door", -1);
-            System.out.println("The stored selected index: " + choicedoor);
             if (choicedoor == -1) {
                 selectedDoor = null;
             } else {
@@ -298,12 +269,9 @@ public class GameActivity extends AppCompatActivity {
                 selectedDoor.setImageResource(R.drawable.selected_door);
             }
 
-            win = getPreferences(MODE_PRIVATE).getInt("win_count", 0);  // no clue why this does not work
-            System.out.println("The stored win count is : " + win);
-            System.out.println("string of win count: " + Integer.toString(win));
+            win = getPreferences(MODE_PRIVATE).getInt("win_count", 0);
 
             loss = getPreferences(MODE_PRIVATE).getInt("loss_count", 0);
-            System.out.println("The stored loss count is : " + loss);
 
             timesLost.setText(Integer.toString(loss));
             timesWon.setText(Integer.toString(win));
@@ -338,7 +306,6 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        //save everything
         save();
         super.onPause();
     }
@@ -352,7 +319,6 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         save();
-        //save stuff so that game can be continued
         super.onDestroy();
     }
 
